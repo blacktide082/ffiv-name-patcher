@@ -44,8 +44,8 @@ If you want to manually apply the patch with a hex editor you can follow these s
 - Navigate to offset `2C089`, or search for `6A 00 FF D3` and navigate to the first result.
 - Replace `6A 00` with `EB 66`.
 
-  > [!WARNING]  
-  > There are two sequences of `6A 00` before `FF D3`, ensure you are only replacing the two bytes directly before `FF D3`.
+> [!WARNING]  
+> There are two sequences of `6A 00` before `FF D3`, ensure you are only replacing the two bytes directly before `FF D3`.
 
 - Navigate to offset `2C0CC`, or the second result for `6A 00 FF D3`.
 - Replace `6A 00` with `EB 2A`.
