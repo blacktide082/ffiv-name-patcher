@@ -61,6 +61,49 @@ The game uses the Windows API [`MultiByteToWideChar`](https://learn.microsoft.co
 
 This patches the first parameter of the calls to `MultiByteToWideChar` to `932`, which is the codepage for Shift-JIS.
 
+Here is a diff showing the changes to the assembly:
+
+```diff
+@@ -5,8 +5,8 @@
+         0002c081 8b 1d b4        MOV        EBX,dword ptr [KERNEL32.DLL::MultiByteToWideChar]
+                  90 58 00
+         0002c087 6a 00           PUSH       0x0
+-        0002c089 6a 00           PUSH       0x0
++        0002c089 eb 66           JMP        Fix1
++   MultiByteToWideChar1:
+         0002c08b ff d3           CALL       EBX
+@@ -32,8 +32,8 @@
+         0002c0ca 6a 00           PUSH       0x0
+-        0002c0cc 6a 00           PUSH       0x0
++        0002c0cc eb 2a           JMP        Fix2
++   MultiByteToWideChar2:
+         0002c0ce ff d3           CALL       EBX
+@@ -51,18 +51,12 @@
+         0002c0f0 c3              RET
+-        0002c0f1 cc              ??         CCh
+-        0002c0f2 cc              ??         CCh
+-        0002c0f3 cc              ??         CCh
+-        0002c0f4 cc              ??         CCh
+-        0002c0f5 cc              ??         CCh
+-        0002c0f6 cc              ??         CCh
+-        0002c0f7 cc              ??         CCh
+-        0002c0f8 cc              ??         CCh
+-        0002c0f9 cc              ??         CCh
+-        0002c0fa cc              ??         CCh
+-        0002c0fb cc              ??         CCh
+-        0002c0fc cc              ??         CCh
+-        0002c0fd cc              ??         CCh
+-        0002c0fe cc              ??         CCh
++    Fix1:
++        0002c0f1 68 a4 03        PUSH       0x3a4
++                 00 00
++        0002c0f6 eb 93           JMP        MultiByteToWideChar1
++    Fix2:
++        0002c0f8 68 a4 03        PUSH       0x3a4
++                 00 00
++        0002c0fd eb cf           JMP        MultiByteToWideChar2
+```
+
 ## Building
 
 To build the program into a single executable, ensure you have Python 3.11+ with pyinstaller installed, and run the `build.bat` file:
