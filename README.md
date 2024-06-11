@@ -31,7 +31,7 @@ If you prefer not to run the executable, you can manually run the script.
 - Execute the following commands
 
 ```bash
-curl -OL https://raw.githubusercontent.com/blacktide082/ffiv-name-patch/master/patch.py
+curl -OL https://raw.githubusercontent.com/blacktide082/ffiv-name-patcher/master/patch.py
 python patch.py
 ```
 
