@@ -14,7 +14,7 @@ def on_message(message):
 def main():
     print("""
 -------
-FF4 Name Fixer 1.0.0
+Final Fantasy IV Name Fixer 1.0.0
 This program will fixes issue with Final Fantasy IV (3D Remake)
 on non-Japanese versions of Windows where the character's names are
 garbled text (e.g. ƒZƒVƒ‹).
