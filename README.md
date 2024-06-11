@@ -1,14 +1,12 @@
 # Final Fantasy IV Name Patcher
 
-This is a patcher for Final Fantasy IV (3D Remake) for playing in Japanese on a non-Japanese version of Windows.
+This is a patcher for the Steam version of Final Fantasy IV (3D Remake) for playing in Japanese on a non-Japanese version of Windows.
 
-Without using this, the character's names show as jumbled text in the game. For example, Cecil's name shows as ƒZƒVƒ‹ instead of セシル:
+Without using this, all of the game's character names show as jumbled text in the game. For example, Cecil's name shows as ƒZƒVƒ‹ instead of セシル. After applying this patch, the character names will show properly:
 
-![](./images/before.png)
-
-After applying this patch, the character names will show properly:
-
-![](./images/after.png)
+| Before                   | After                   |
+| ------------------------ | ----------------------- |
+| ![](./images/before.png) | ![](./images/after.png) |
 
 See the [explanation](#explanation) below for more details on what the patch does.
 
@@ -20,7 +18,8 @@ The patcher will automatically backup your existing executable to `FF4.exe.origi
 - Download [`ffiv-name-patcher.exe`](https://github.com/blacktide082/ffiv-name-patcher/releases/latest) from the Releases section.
 - Copy/move the `ffiv-name-patcher.exe` file to the root of your game's installation directory.
 - Double click the patcher to open it.
-- You're done! Run the game to ensure the names are working properly.
+- Run the game to ensure the names are working properly.
+- You're done! You can now delete the `ffiv-name-patcher.exe` file.
 
 ## Manually Running the Script
 
