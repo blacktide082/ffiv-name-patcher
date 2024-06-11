@@ -43,8 +43,10 @@ If you want to manually apply the patch with a hex editor you can follow these s
 - Open `FF4.exe` with your favorite hex editor (I recommend [ImHex](https://github.com/WerWolv/ImHex/releases/latest) if you don't have one).
 - Navigate to offset `2C089`, or search for `6A 00 FF D3` and navigate to the first result.
 - Replace `6A 00` with `EB 66`.
+
   > [!WARNING]  
   > There are two sequences of `6A 00` before `FF D3`, ensure you are only replacing the two bytes directly before `FF D3`.
+
 - Navigate to offset `2C0CC`, or the second result for `6A 00 FF D3`.
 - Replace `6A 00` with `EB 2A`.
 - Navigate to `2C0F0` and replace `C3 CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC` with `C3 68 A4 03 00 00 EB 93 68 A4 03 00 00 EB CF CC`.
