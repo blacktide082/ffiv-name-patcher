@@ -1,49 +1,57 @@
 const ff4 = Process.mainModule;
-const mappings = {
-    "ポーチカ": 　[0x92, 0x01, 0x7C, 0x00, 0x81, 0x00, 0x5B, 0x00, 0x92, 0x01, 0x60, 0x00, 0x92, 0x01, 0x4A, 0x00],
-    "セシル": 　　[0x92, 0x01, 0x5A, 0x00, 0x92, 0x01, 0x56, 0x00, 0x92, 0x01, 0x39, 0x20],
-    "カイン": 　　[0x92, 0x01, 0x4A, 0x00, 0x92, 0x01, 0x43, 0x00, 0x92, 0x01, 0x1C, 0x20],
-    "ローザ": 　　[0x92, 0x01, 0x8D, 0x00, 0x81, 0x00, 0x5B, 0x00, 0x92, 0x01, 0x55, 0x00],
-    "リディア": 　[0x92, 0x01, 0x60, 0x01, 0x92, 0x01, 0x66, 0x00, 0x92, 0x01, 0x42, 0x00, 0x92, 0x01, 0x41, 0x00],
-    "テラ": 　　　[0x92, 0x01, 0x65, 0x00, 0x92, 0x01, 0x30, 0x20],
-    "ポロム": 　　[0x92, 0x01, 0x7C, 0x00, 0x92, 0x01, 0x8D, 0x00, 0x92, 0x01, 0xAC, 0x20],
-    "パロム": 　　[0x92, 0x01, 0x70, 0x00, 0x92, 0x01, 0x8D, 0x00, 0x92, 0x01, 0xAC, 0x20],
-    "ギルバート": [0x92, 0x01, 0x4D, 0x00, 0x92, 0x01, 0x39, 0x20, 0x92, 0x01, 0x6F, 0x00, 0x81, 0x00, 0x5B, 0x00, 0x92, 0x01, 0x67, 0x00],
-    "ヤン": 　　　[0x92, 0x01, 0x1E, 0x20, 0x92, 0x01, 0x1C, 0x20],
-    "シド": 　　　[0x92, 0x01, 0x56, 0x00, 0x92, 0x01, 0x68, 0x00],
-    "エッジ": 　　[0x92, 0x01, 0x47, 0x00, 0x92, 0x01, 0x62, 0x00, 0x92, 0x01, 0x57, 0x00],
-    "フースーヤ": [0x92, 0x01, 0x74, 0x00, 0x81, 0x00, 0x5B, 0x00, 0x92, 0x01, 0x58, 0x00, 0x81, 0x00, 0x5B, 0x00, 0x92, 0x01, 0x1E, 0x20],
-    "ゴルベーザ": [0x92, 0x01, 0x53, 0x00, 0x92, 0x01, 0x39, 0x20, 0x92, 0x01, 0x78, 0x00, 0x81, 0x00, 0x5B, 0x00, 0x92, 0x01, 0x55, 0x00],
+const patterns = {
+    "ポーチカ": 　"92 01 7c 00 81 00 5b 00 92 01 60 00 92 01 4a 00",
+    "セシル": 　　"92 01 5a 00 92 01 56 00 92 01 39 20",
+    "カイン": 　　"92 01 4a 00 92 01 43 00 92 01 1c 20",
+    "ローザ": 　　"92 01 8d 00 81 00 5b 00 92 01 55 00",
+    "リディア": 　"92 01 60 01 92 01 66 00 92 01 42 00 92 01 41 00",
+    "テラ": 　　　"92 01 65 00 92 01 30 20",
+    "ポロム": 　　"92 01 7c 00 92 01 8d 00 92 01 ac 20",
+    "パロム": 　　"92 01 70 00 92 01 8d 00 92 01 ac 20",
+    "ギルバート": "92 01 4d 00 92 01 39 20 92 01 6f 00 81 00 5b 00 92 01 67 00",
+    "ヤン": 　　　"92 01 1e 20 92 01 1c 20",
+    "シド": 　　　"92 01 56 00 92 01 68 00",
+    "エッジ": 　　"92 01 47 00 92 01 62 00 92 01 57 00",
+    "フースーヤ": "92 01 74 00 81 00 5b 00 92 01 58 00 81 00 5b 00 92 01 1e 20",
+    "ゴルベーザ": "92 01 53 00 92 01 39 20 92 01 78 00 81 00 5b 00 92 01 55 00",
 };
 
 function main() {
     console.log("Installing hook...");
-    const results = Memory.scanSync(ff4.base, ff4.size, '53 8B 5D 08 8B C3 2B C1');
+    const results = Memory.scanSync(ff4.base, ff4.size, '6A 00 6A 00 FF D3');
     if (results.length === 0) {
-        console.error("Could not install hook! Please file an issue.");
+        console.error("Could not install hooks! Please file an issue.");
         return;
     }
 
-    let count = 0;
-    let timeout = 0;
-    Interceptor.attach(results[0].address, function (args) {
-        const bytes = read(this.context.ecx);
-        for (const [key, value] of Object.entries(mappings)) {
-            if (!match(bytes, value)) continue;
+    for (const result of results) {
+        Interceptor.attach(result.address.add(0x4), function (args) {
+            this.context.esp.writeU32(0x000003A4);
+        });
+    }
+    console.log("Hooks successfully installed.");
 
-            this.context.ecx.writeUtf16String(key);
-            count++;
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                console.log(`Successfully applied fix for ${count} name(s)!`);
-                count = 0;
-            }, 100);
-            break;
+    console.log("Finding names in memory...");
+    let names = [];
+    for (const [name, pattern] of Object.entries(patterns)) {
+        const results = Memory.scanSync(ff4.base, ff4.size, pattern);
+        for (const result of results) {
+            result.address.writeUtf16String(name);
+            names.push(name);
         }
-    });
+    }
+    const count = names.filter((value, index, array) => array.indexOf(value) === index).length;
+    console.log(`Applied fix for ${count} name${count > 1 ? 's' : ''}!`);
 
-    console.log("Hook successfully installed.");
-    console.log("Waiting for names to be written to memory...");
+    console.log("Waiting for names to be written to memory... please leave the process running.");
+}
+
+function success(names) {
+    if (names.length === 0) {
+        return;
+    }
+
+    names.length = 0;
 }
 
 function read(address) {

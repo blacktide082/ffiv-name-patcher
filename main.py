@@ -9,7 +9,10 @@ def on_detached(args):
     print("Detached from process! You may close this window.")
 
 def on_message(message):
-    print(message["payload"])
+    if (message["type"] == "error"):
+        print(message["stack"])
+    else:
+        print(message["payload"])
 
 def main():
     print("""
