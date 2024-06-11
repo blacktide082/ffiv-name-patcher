@@ -5,4 +5,4 @@ FOR /F "tokens=*" %%g IN ('%SITE_PACKAGES_CMD%') do (
     SET SITE_PACKAGES=%%g
 )
 
-pyinstaller --onefile --paths "%SITE_PACKAGES%" --add-data="hook.js:." --name ffiv-name-fixer .\main.py
+pyinstaller --onefile --paths "%SITE_PACKAGES%" --name ffiv-name-patcher .\patch.py
