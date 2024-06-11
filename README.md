@@ -24,7 +24,7 @@ The patcher will automatically backup your existing executable to `FF4.exe.origi
 
 ## Manually Running the Script
 
-If you prefer not to run the executable, you can manually run the script.
+If you prefer not to run the executable, you can manually run the script:
 
 - Ensure you have Python 3.11+ installed.
 - Open a terminal or Powershell window, and change directory to your Final Fantasy IV's game installation. 
@@ -37,7 +37,7 @@ python patch.py
 
 ## Manually Patch the Executable with a Hex Editor
 
-If you want to manually apply the patch with a hex editor you can follow the steps below.
+If you prefer to manually patch the game with a hex editor, you can follow the steps below:
 
 - Create a backup of `FF4.exe`.
 - Open `FF4.exe` with your favorite hex editor (I recommend [ImHex](https://github.com/WerWolv/ImHex/releases/latest) if you don't have one).
