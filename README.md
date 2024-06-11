@@ -52,6 +52,10 @@ If you want to manually apply the patch with a hex editor you can follow these s
 - Navigate to `2C0F0` and replace `C3 CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC` with `C3 68 A4 03 00 00 EB 93 68 A4 03 00 00 EB CF CC`.
 - Save the file.
 
+The following image shows the 3 locations that need to be modified:
+
+![](./images/hexedit.png)
+
 ## Explanation
 
 All of the character's names are stored as constant strings in the game's executable file and are encoded with the Shift-JIS encoding.
